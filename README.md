@@ -78,6 +78,13 @@ Go to your newly created repo you should now see the README.md file has been upl
 </br>
 </br>
 
+## Undoing changes
+---
+[undoing changes](https://www.atlassian.com/git/tutorials/undoing-changes)
+
+</br>
+</br>
+
 ## Rebase
 ---
 [rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
