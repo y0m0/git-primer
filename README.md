@@ -36,10 +36,18 @@ git clone https://github.com/y0m0/git-primer.git
 
 Every good repository needs a readme file, so we can start by creating one.
 Just create a file called README.md. Inside this file write a description for the repository and save it.  
+
+We can check the current status of the repository
+```
+git status
+```
+This will list wich files are staged, unstaged and untracked.
+In our case it will show that README.md is unstaged.
+
 In order to save it to the repository we need to:
 1. Stage our changes
 2. Create a commit with a meaningful message
-3. Push them changes to the repository
+3. Push them changes to the repository.
 
 ```
 git add README.md
@@ -58,3 +66,18 @@ git push -u origin master
 *The  -u flag is used only the first time to set the the upstream, more on this [here](https://stackoverflow.com/a/37770744)*.
 
 Go to your newly created repo you should now see the README.md file has been uploaded.
+
+</br>
+</br>
+
+## Work with Branches
+---
+[atlassian](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
+)
+
+</br>
+</br>
+
+## Rebase
+---
+[atlassian](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
