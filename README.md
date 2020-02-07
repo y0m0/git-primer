@@ -4,7 +4,6 @@
 
 
 ## The Basics
----
 
 ### Create a new repository
 
@@ -71,7 +70,7 @@ Go to your newly created repo you should now see the README.md file has been upl
 </br>
 
 ## Work with Branches
----
+
 [feature-branch-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
 )
 
@@ -79,34 +78,34 @@ Go to your newly created repo you should now see the README.md file has been upl
 </br>
 
 ## Undoing changes
----
-[undoing changes](https://www.atlassian.com/git/tutorials/undoing-changes)
+
+[cherry pick](https://www.atlassian.com/git/tutorials/undoing-changes)
 
 </br>
 </br>
 
 ## Rebase
----
+
 [rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
 
 </br>
 </br>
 
 ## Rebase vs Merge
----
+
 [rebase vs merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
 
 </br>
 </br>
 
 ## Revert, Reset and Checkout
----
+
 [revert reset checkout](https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting)
 
 </br>
 </br>
 
 ### Chrerry Pick
----
+
 [cherry pick](https://www.atlassian.com/git/tutorials/cherry-pick)
 
