@@ -72,7 +72,7 @@ Go to your newly created repo you should now see the README.md file has been upl
 
 ## Work with Branches
 ---
-[atlassian](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
+[feature-branch-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
 )
 
 </br>
@@ -80,4 +80,26 @@ Go to your newly created repo you should now see the README.md file has been upl
 
 ## Rebase
 ---
-[atlassian](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+[rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+
+</br>
+</br>
+
+## Rebase vs Merge
+---
+[rebase vs merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+
+</br>
+</br>
+
+## Revert, Reset and Checkout
+---
+[revert reset checkout](https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting)
+
+</br>
+</br>
+
+### Chrerry Pick
+---
+[cherry pick](https://www.atlassian.com/git/tutorials/cherry-pick)
+
