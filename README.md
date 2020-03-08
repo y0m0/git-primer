@@ -103,6 +103,17 @@ git push -u origin feature/duty-report
 ```
 *the -u flag adds it as a remote tracking branch. After setting up the tracking branch, git push can be invoked without any parameters to automatically push the new-feature branch to the central repository*
 
+### 4. Create a pull request
+Once someone completes a feature, they don’t immediately merge it into master. Instead, they push the feature branch to the central server and file a pull request asking to merge their additions into master. This gives other developers an opportunity to review the changes before they become a part of the main codebase
+To create a pull request follow this steps:
+1. On GitHub, navigate to the main page of the repository.
+2. In the "Branch" menu, choose the branch that contains your commits.
+3. To the right of the Branch menu, click New pull request.
+4. Use the base branch dropdown menu to select the branch you'd like to merge your changes into, then use the compare branch drop-down menu to choose the topic branch you made your changes in.
+5. Type a title and description for your pull request. Additionally, on the description, you can add a reference number to an open issue which this pull request is related to. 
+6. Add one or several reviewers, the assignees, and eventually a link to a project.
+7. Click on Create Pull request to submit your pull request for review.
+
 </br>
 </br>
 
