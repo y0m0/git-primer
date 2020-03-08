@@ -67,7 +67,14 @@ git push -u origin master
 Go to your newly created repo you should now see the README.md file has been uploaded.
 
 </br>
-</br>
+
+Back on the command line we can also inspect the commit history
+```
+git log
+```
+it will list all commits from newest to oldest starting from the top, to scroll press <space> and to exit press <q>
+
+---
 
 ## Work with Branches
 
@@ -117,37 +124,162 @@ To create a pull request follow this steps:
 9. The reviewer approves the pull request, here is **very important** to add the [shipit squirrel](https://github.blog/2012-09-24-how-we-ship-github-for-windows/) :shipit:
 10. If there are no merge conflicts we can now merge the pull request and delete the now obsolete branch.
 
+</br>
 
+---
+
+## Merging and Rebasing
+When done working on a feature branch we will need to merge our changes back to master, we saw how to do this by creating a pull request.
+Consider what happens when another team member updates the master branch with new commits. This results in a forked history.
+<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" alt="img" style="zoom:30%;" />
+
+Now, let’s say that the new commits in master are relevant to the feature that you’re working on. To incorporate the new commits into your feature branch, you have two options: merging or rebasing.
+
+### Merge
+The easiest option is to merge the master branch into the feature branch using something like the following:
+```
+git checkout feature
+git merge master
+```
+Or, you can condense this to a one-liner:
+```
+git merge feature master
+```
+This creates a new “merge commit” in the feature branch that ties together the histories of both branches, giving you a branch structure that looks like this:
+<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" />
+
+Merging is nice because it’s a non-destructive operation. The existing branches are not changed in any way. This avoids all of the potential pitfalls of rebasing (discussed below).
+
+On the other hand, this also means that the feature branch will have an extraneous merge commit every time you need to incorporate upstream changes. If master is very active, this can pollute your feature branch’s history quite a bit. While it’s possible to mitigate this issue with advanced git log options, it can make it hard for other developers to understand the history of the project.
+
+### Rebase
+As an alternative to merging, you can rebase the feature branch onto master branch using the following commands:
+```
+git checkout feature
+git rebase master
+```
+This moves the entire feature branch to begin on the tip of the master branch, effectively incorporating all of the new commits in master. But, instead of using a merge commit, rebasing re-writes the project history by creating brand new commits for each commit in the original branch.
+
+<img src="https://wac-cdn.atlassian.com/dam/jcr:5b153a22-38be-40d0-aec8-5f2fffc771e5/03.svg?cdnVersion=866" />
+
+The major benefit of rebasing is that you get a much cleaner project history. First, it eliminates the unnecessary merge commits required by git merge. Second, as you can see in the above diagram, rebasing also results in a perfectly linear project history—you can follow the tip of feature all the way to the beginning of the project without any forks. This makes it easier to navigate your project with commands like git log.
+
+
+Once you understand what rebasing is, the most important thing to learn is when not to do it. The golden rule of git rebase is to never use it on public branches.
+
+See the section below for a more advanced type of rebase, interactive rebase.
 </br>
-</br>
+
+---
 
 ## Undoing changes
 
-[Undoing Commits](https://www.atlassian.com/git/tutorials/undoing-changes)
+### Changing the Last Commit
+
+Premature commits happen all the time in the course of your everyday development. It’s easy to forget to stage a file or to format your commit message the wrong way. The --amend flag is a convenient way to fix these minor mistakes.
+```
+git commit --amend
+```
+or if you dont want to edit the commit message
+```
+git commit --amend --no-edit
+```
+Don’t amend public commits!
+
+Amended commits are actually entirely new commits and the previous commit will no longer be on your current branch. This has the same consequences as resetting a public snapshot. Avoid amending a commit that other developers have based their work on. This is a confusing situation for developers to be in and it’s complicated to recover from.
+
+### Reset A Specific Commit
+
+Resetting is a way to move the tip of a branch to a different commit. This can be used to remove commits from the current branch. For example, the following command moves the hotfix branch backwards by two commits.
+```
+git checkout hotfix
+git reset HEAD~2
+```
+The two commits that were on the end of hotfix are now dangling, or orphaned commits. This means they will be deleted the next time Git performs a garbage collection. In other words, you’re saying that you want to throw away these commits. This can be visualized as the following:
+
+<img src="https://wac-cdn.atlassian.com/dam/jcr:4c7d368e-6e40-4f82-a315-1ed11316cf8b/02-updated.png?cdnVersion=866" />
+
+This usage of git reset is a simple way to undo changes that haven’t been shared with anyone else. It’s your go-to command when you’ve started working on a feature and find yourself thinking, “Oh crap, what am I doing? I should just start over.”
+
+In addition to moving the current branch, you can also get git reset to alter the staged snapshot and/or the working directory by passing it one of the following flags:
+```
+--soft – The staged snapshot and working directory are not altered in any way.
+
+--mixed – The staged snapshot is updated to match the specified commit, but the working directory is not affected. This is the default option.
+
+--hard – The staged snapshot and the working directory are both updated to match the specified commit.
+```
+
+### Undo Public Commits with Revert
+Reverting undoes a commit by creating a new commit. This is a safe way to undo changes, as it has no chance of re-writing the commit history. For example, the following command will figure out the changes contained in the 2nd to last commit, create a new commit undoing those changes, and tack the new commit onto the existing project.
+```
+git checkout hotfix
+git revert HEAD~2
+```
+<img src="https://wac-cdn.atlassian.com/dam/jcr:73d36b14-72a7-4e96-a5bf-b86629d2deeb/06.svg?cdnVersion=866" />
+Contrast this with git reset, which does alter the existing commit history. For this reason, git revert should be used to undo changes on a public branch, and git reset should be reserved for undoing changes on a private branch.
 
 </br>
-</br>
 
-## Rebase
+---
 
-[rebase](https://www.atlassian.com/git/tutorials/rewriting-history/git-rebase)
+### Interactive Rebase(pick, edit, squash and more)
 
-</br>
-</br>
+Interactive rebasing gives you the opportunity to alter commits as they are moved to the new branch. This is even more powerful than an automated rebase, since it offers complete control over the branch’s commit history. Typically, this is used to clean up a messy history before merging a feature branch into master.
 
-## Rebase vs Merge
+To begin an interactive rebasing session, pass the i option to the git rebase command:
+```
+git checkout feature
+git rebase -i master
+```
 
-[rebase vs merge](https://www.atlassian.com/git/tutorials/merging-vs-rebasing)
+This will open a text editor listing all of the commits that are about to be moved:
+```
+pick 33d5b7a Message for commit #1
+pick 9480b3d Message for commit #2
+pick 5c67e61 Message for commit #3
 
-</br>
-</br>
+# Rebase 33d5b7a..5c67e61 onto 710f0f8
+#
+# Commands:
+# p, pick <commit> = use commit
+# r, reword <commit> = use commit, but edit the commit message
+# e, edit <commit> = use commit, but stop for amending
+# s, squash <commit> = use commit, but meld into previous commit
+# f, fixup <commit> = like "squash", but discard this commit's log message
+# x, exec <command> = run command (the rest of the line) using shell
+# b, break = stop here (continue rebase later with 'git rebase --continue')
+# d, drop <commit> = remove commit
+# l, label <label> = label current HEAD with a name
+# t, reset <label> = reset HEAD to a label
+# m, merge [-C <commit> | -c <commit>] <label> [# <oneline>]
+# .       create a merge commit using the original merge commit's
+# .       message (or the oneline, if no original merge commit was
+# .       specified). Use -c <commit> to reword the commit message.
+#
+# These lines can be re-ordered; they are executed from top to bottom.
+#
+# If you remove a line here THAT COMMIT WILL BE LOST.
+#
+# However, if you remove everything, the rebase will be aborted.
+#
+# Note that empty commits are commented out
+```
 
-## Revert, Reset and Checkout
+This listing defines exactly what the branch will look like after the rebase is performed. By changing the pick command and/or re-ordering the entries, you can make the branch’s history look like whatever you want. For example, if the 2nd commit fixes a small problem in the 1st commit, you can condense them into a single commit with the fixup command:
+```
+pick 33d5b7a Message for commit #1
+fixup 9480b3d Message for commit #2
+pick 5c67e61 Message for commit #3
+```
 
-[revert reset checkout](https://www.atlassian.com/git/tutorials/resetting-checking-out-and-reverting)
+When you save and close the file, Git will perform the rebase according to your instructions, resulting in project history that looks like the following:
 
-</br>
-</br>
+<img src="https://wac-cdn.atlassian.com/dam/jcr:fe6942b4-7a60-4464-9181-b67e59e50788/04.svg?cdnVersion=866" />
+
+Eliminating insignificant commits like this makes your feature’s history much easier to understand. This is something that git merge simply cannot do.
+
+---
 
 ### Chrerry Pick
 
