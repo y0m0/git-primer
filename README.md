@@ -113,6 +113,10 @@ To create a pull request follow this steps:
 5. Type a title and description for your pull request. Additionally, on the description, you can add a reference number to an open issue which this pull request is related to. 
 6. Add one or several reviewers, the assignees, and eventually a link to a project.
 7. Click on Create Pull request to submit your pull request for review.
+8. Reviewer can eventually add comments to the code or suggest changes.
+9. The reviewer approves the pull request, here is **very important** to add the [shipit squirrel](https://github.blog/2012-09-24-how-we-ship-github-for-windows/) :shipit:
+10. If there are no merge conflicts we can now merge the pull request and delete the now obsolete branch.
+
 
 </br>
 </br>
