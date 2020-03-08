@@ -71,15 +71,44 @@ Go to your newly created repo you should now see the README.md file has been upl
 
 ## Work with Branches
 
-[feature-branch-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow
-)
+A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner. There are several well known workflows that can be used, the one that we will focus on is called **Git Feature Branch Workflow**
+
+The **Feature Branch Workflow** assumes a central repository, and master represents the official project history. Instead of committing directly on their local master branch, developers create a new branch every time they start work on a new feature. Feature branches should have descriptive names, like animated-menu-items or issue-#1061. The idea is to give a clear, highly-focused purpose to each branch.
+
+
+In addition, feature branches can (and should) be pushed to the central repository. This makes it possible to share a feature with other developers without touching any official code. Since master is the only “special” branch, storing several feature branches on the central repository doesn’t pose any problems. Of course, this is also a convenient way to back up everybody’s local commits.
+
+Here is a simple example of how the workflow works:
+
+### 1. Update Master
+When starting to work on a new feature / bug or any change to the base code, we first checkout to the master branch and then pull the latest commit to our local version of the repo.
+```
+git chekcout master
+git fetch origin
+```
+### 2. Create a new branch
+Use a separate branch for each feature or issue you work on. After creating a branch, check it out locally so that any changes you make will be on that branch. The -b flags is used to create a new branch if it doesn't already exists.
+```
+git checkout -b feature/duty-report
+```
+
+### 3. Update, add, commit, and push changes
+```
+git status
+git add <filename>
+\\ or to stage all changed files at the same time
+git add .
+git commit -m 'my commit message'
+git push -u origin feature/duty-report
+```
+*the -u flag adds it as a remote tracking branch. After setting up the tracking branch, git push can be invoked without any parameters to automatically push the new-feature branch to the central repository*
 
 </br>
 </br>
 
 ## Undoing changes
 
-[cherry pick](https://www.atlassian.com/git/tutorials/undoing-changes)
+[Undoing Commits](https://www.atlassian.com/git/tutorials/undoing-changes)
 
 </br>
 </br>
