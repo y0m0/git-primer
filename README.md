@@ -1,6 +1,7 @@
 # Git Primer
-
-<img src="https://imgs.xkcd.com/comics/git.png" alt="img" style="zoom:70%;" />
+<p align="center">
+<img src="https://imgs.xkcd.com/comics/git.png" alt="img" width="400" />
+</p>
 
 
 ## The Basics
@@ -66,22 +67,24 @@ git push -u origin master
 
 Go to your newly created repo you should now see the README.md file has been uploaded.
 
-</br>
-
 Back on the command line we can also inspect the commit history
 ```
 git log
 ```
 it will list all commits from newest to oldest starting from the top, to scroll press <space> and to exit press <q>
 
----
+</br>
+</br>
 
 ## Work with Branches
 
 A Git Workflow is a recipe or recommendation for how to use Git to accomplish work in a consistent and productive manner. There are several well known workflows that can be used, the one that we will focus on is called **Git Feature Branch Workflow**
 
-The **Feature Branch Workflow** assumes a central repository, and master represents the official project history. Instead of committing directly on their local master branch, developers create a new branch every time they start work on a new feature. Feature branches should have descriptive names, like animated-menu-items or issue-#1061. The idea is to give a clear, highly-focused purpose to each branch.
+<p align="center">
+<img src="https://www.atlassian.com/dam/jcr:746be214-eb99-462c-9319-04a4d2eeebfa/01.svg" width="500" />
+</p>
 
+The **Feature Branch Workflow** assumes a central repository, and master represents the official project history. Instead of committing directly on their local master branch, developers create a new branch every time they start work on a new feature. Feature branches should have descriptive names, like animated-menu-items or issue-#1061. The idea is to give a clear, highly-focused purpose to each branch.
 
 In addition, feature branches can (and should) be pushed to the central repository. This makes it possible to share a feature with other developers without touching any official code. Since master is the only “special” branch, storing several feature branches on the central repository doesn’t pose any problems. Of course, this is also a convenient way to back up everybody’s local commits.
 
@@ -125,13 +128,14 @@ To create a pull request follow this steps:
 10. If there are no merge conflicts we can now merge the pull request and delete the now obsolete branch.
 
 </br>
-
----
+</br>
 
 ## Merging and Rebasing
 When done working on a feature branch we will need to merge our changes back to master, we saw how to do this by creating a pull request.
 Consider what happens when another team member updates the master branch with new commits. This results in a forked history.
-<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" alt="img" style="zoom:30%;" />
+<p align="center">
+<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" width="500" />
+</p>
 
 Now, let’s say that the new commits in master are relevant to the feature that you’re working on. To incorporate the new commits into your feature branch, you have two options: merging or rebasing.
 
@@ -146,7 +150,9 @@ Or, you can condense this to a one-liner:
 git merge feature master
 ```
 This creates a new “merge commit” in the feature branch that ties together the histories of both branches, giving you a branch structure that looks like this:
-<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" />
+<p align="center">
+<img src="https://www.atlassian.com/dam/jcr:e229fef6-2c2f-4a4f-b270-e1e1baa94055/02.svg" width="500" />
+</p>
 
 Merging is nice because it’s a non-destructive operation. The existing branches are not changed in any way. This avoids all of the potential pitfalls of rebasing (discussed below).
 
@@ -160,17 +166,18 @@ git rebase master
 ```
 This moves the entire feature branch to begin on the tip of the master branch, effectively incorporating all of the new commits in master. But, instead of using a merge commit, rebasing re-writes the project history by creating brand new commits for each commit in the original branch.
 
-<img src="https://wac-cdn.atlassian.com/dam/jcr:5b153a22-38be-40d0-aec8-5f2fffc771e5/03.svg?cdnVersion=866" />
+<p align="center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:5b153a22-38be-40d0-aec8-5f2fffc771e5/03.svg?cdnVersion=866" width="500" />
+</p>
 
 The major benefit of rebasing is that you get a much cleaner project history. First, it eliminates the unnecessary merge commits required by git merge. Second, as you can see in the above diagram, rebasing also results in a perfectly linear project history—you can follow the tip of feature all the way to the beginning of the project without any forks. This makes it easier to navigate your project with commands like git log.
-
 
 Once you understand what rebasing is, the most important thing to learn is when not to do it. The golden rule of git rebase is to never use it on public branches.
 
 See the section below for a more advanced type of rebase, interactive rebase.
-</br>
 
----
+</br>
+</br>
 
 ## Undoing changes
 
@@ -197,7 +204,9 @@ git reset HEAD~2
 ```
 The two commits that were on the end of hotfix are now dangling, or orphaned commits. This means they will be deleted the next time Git performs a garbage collection. In other words, you’re saying that you want to throw away these commits. This can be visualized as the following:
 
-<img src="https://wac-cdn.atlassian.com/dam/jcr:4c7d368e-6e40-4f82-a315-1ed11316cf8b/02-updated.png?cdnVersion=866" />
+<p align="center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:4c7d368e-6e40-4f82-a315-1ed11316cf8b/02-updated.png?cdnVersion=866" width="500" />
+</p>
 
 This usage of git reset is a simple way to undo changes that haven’t been shared with anyone else. It’s your go-to command when you’ve started working on a feature and find yourself thinking, “Oh crap, what am I doing? I should just start over.”
 
@@ -216,12 +225,15 @@ Reverting undoes a commit by creating a new commit. This is a safe way to undo c
 git checkout hotfix
 git revert HEAD~2
 ```
-<img src="https://wac-cdn.atlassian.com/dam/jcr:73d36b14-72a7-4e96-a5bf-b86629d2deeb/06.svg?cdnVersion=866" />
+
+<p align="center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:73d36b14-72a7-4e96-a5bf-b86629d2deeb/06.svg?cdnVersion=866" width="500" />
+</p>
+
 Contrast this with git reset, which does alter the existing commit history. For this reason, git revert should be used to undo changes on a public branch, and git reset should be reserved for undoing changes on a private branch.
 
 </br>
-
----
+</br>
 
 ### Interactive Rebase(pick, edit, squash and more)
 
@@ -275,13 +287,15 @@ pick 5c67e61 Message for commit #3
 
 When you save and close the file, Git will perform the rebase according to your instructions, resulting in project history that looks like the following:
 
-<img src="https://wac-cdn.atlassian.com/dam/jcr:fe6942b4-7a60-4464-9181-b67e59e50788/04.svg?cdnVersion=866" />
+<p align="center">
+<img src="https://wac-cdn.atlassian.com/dam/jcr:fe6942b4-7a60-4464-9181-b67e59e50788/04.svg?cdnVersion=866" width="500" />
+</p>
 
 Eliminating insignificant commits like this makes your feature’s history much easier to understand. This is something that git merge simply cannot do.
 
----
+</br>
+</br>
 
 ### Chrerry Pick
 
 [cherry pick](https://www.atlassian.com/git/tutorials/cherry-pick)
-
